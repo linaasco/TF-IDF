@@ -22,6 +22,7 @@ TF-IDF.py: Script principal con la lógica del motor de búsqueda.
 
 README.md: Documentación del proyecto.
 
+<<<<<<< HEAD
 Tabla de Importancia (IDF)
 El sistema analizó el corpus de 10 artículos y determinó los siguientes pesos globales:
 
@@ -30,19 +31,37 @@ El sistema analizó el corpus de 10 artículos y determinó los siguientes pesos
 | **Alto (Raras)** | `mandatos`, `salvo`, `desarrollar` | **2.3026** | Aparecen en 1 de 10 docs. Son términos muy específicos. |
 | **Bajo (Comunes)** | `de`, `en`, `la`, `a` | **0.0000** | Aparecen en todos los docs. No aportan valor de búsqueda. |
 
+=======
+Instalación y Uso
+
+Crear entorno virtual
+Bash
+python -m venv venv    
+
+Activar entorno
+Bash
+.\venv\Scripts\Activate
+
+Ejecutar el motor:
+
+Bash
+python TF-IDF.py
+
 Ejemplos de Ejecución
 A continuación se muestran los resultados obtenidos tras realizar búsquedas específicas en el sistema:
 
-Caso 1: Búsqueda de 'créditos académicos'
-El sistema identifica correctamente los artículos que definen el valor y la homologación de créditos.
+Ejemplos de Ejecución (Resultados en Terminal)
+
+Al ejecutar el motor con los términos del reglamento, la salida sigue el formato de ranking por relevancia:
+
+```text
+IDF para el término 'créditos': 0.5108
 
 
+IDF para el término 'admisión': 1.6094
 
-Caso 2: Búsqueda de 'proceso admisión'
-Filtra artículos relacionados con el ingreso y la reserva de información.
 
-Caso 3: Búsqueda de 'estudiantes regulares'
-Filtra artículos relacionados con los procesos que deben cumplir los estudiantes regulares.
+IDF para el termino 'estudiantes': 1.6094
 
 ¿Por qué TF-IDF?
 A diferencia de una búsqueda simple de palabras (que daría la misma importancia a conectores como "la" o "de"), el modelo TF-IDF asegura que las palabras técnicas y raras (como homologables, admisión o disciplinaria) tengan un mayor peso en el ranking, mejorando la precisión de la búsqueda.
