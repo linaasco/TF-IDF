@@ -42,24 +42,19 @@ def motor_busqueda(consulta, corpus):
     
     return sorted(resultados, key=lambda x: x["score"], reverse=True)
 
-# --- EJECUCIÓN DE PRUEBAS (ESTILO PROFE) ---
-consultas_ejemplo = ["créditos", "admisión", "estudiantes"]
+# --- EJECUCIÓN DE PRUEBAS ---
+consultas = ["créditos académicos", "proceso admisión", "estudiantes regulares"]
 
-for consulta in consultas_ejemplo:
-    # Como el ejemplo del profe es para un término, calculamos el IDF de ese término principal
-    palabras = consulta.lower().split()
-    termino_principal = palabras[0]
-    idf_valor = calcular_idf(termino_principal, documents)
-    
-    print(f"\nIDF para el término '{termino_principal}': {idf_valor:.4f}")
-    
-    ranking = motor_busqueda(consulta, documents)
-    
-    for i, res in enumerate(ranking, 1):
-        # Mostramos el ranking, el texto del documento y su score final
-        # Limitamos el texto a 70 caracteres para que se vea ordenado como en la imagen
-        texto_corto = (res['doc'][:70] + '..') if len(res['doc']) > 70 else res['doc']
-        print(f" {i} - Documento: {texto_corto}: TF-IDF = {res['score']:.4f}")
+for q in consultas:
+    print(f"\n🔍 Búsqueda: '{q}'")
+    ranking = motor_busqueda(q, documents)
+    for res in ranking[:3]: # Top 3
+        print(f"ID {res['id']} (Score: {res['score']:.4f}): {res['doc'][:80]}...")
+
+# --- CÁLCULO DE TABLAS DE IDF PARA LA PRESENTACIÓN ---
+print("\n" + "="*50)
+print("ANÁLISIS DE IMPORTANCIA DE PALABRAS (IDF)")
+print("="*50)
 
 # 1. Obtener todas las palabras únicas del reglamento
 todas_las_palabras = set()
