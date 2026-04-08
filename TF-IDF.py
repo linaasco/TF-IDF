@@ -1,0 +1,52 @@
+import numpy as np
+import math
+
+# PASO 1: Dataset con tus artículos
+documents = [
+    "La Institución podrá desarrollar programas de educación informal, los cuales no conducirán a la obtención de títulos profesionales ni a certificaciones de aptitud ocupacional. Estos programas serán denominados programas de educación o formación continuada.",
+    "El número de créditos de un programa académico y de los espacios formativos que lo integren será el definido por el Consejo Superior en consideración a las recomendaciones hechas por el Consejo Académico.",
+    "El número de créditos académicos de una actividad en el plan de estudios será el resultado de dividir entre 48 el total de horas que el estudiante debe emplear",
+    "Una vez culminado el proceso de admisión, la Institución informará al aspirante, los resultados correspondientes.",
+    "La documentación allegada por los aspirantes no admitidos, o aquellos que habiendo sido admitidos a un programa no se matriculen, serán suprimidos de los sistemas de información institucionales.",
+    "Los resultados del proceso de admisión en cada una de las pruebas y procedimientos desarrollados, son de reserva institucional y en ningún caso se comunican a terceras personas, salvo las excepciones contenidas en la ley.",
+    "El porcentaje máximo de créditos homologables para el programa académico será del 60%.",
+    "Los estudiantes transferentes deben cumplir con los prerrequisitos de las asignaturas como condición indispensable para poder inscribir y cursar las asignaturas del plan de estudios.",
+    "Los estudiantes de la Institución se clasifican en estudiantes regulares y estudiantes de extensión.",
+    "Se denomina estudiante regular a aquel que se ha matriculado en cualquiera de los programas académicos que conduzcan a un título académico formal, previo el cumplimiento de los requisitos exigidos por los mandatos legales, los Estatutos y los Reglamentos de la Institución."
+]
+
+def calcular_tf(termino, documento):
+    palabras = documento.lower().replace(",", "").replace(".", "").split()
+    if len(palabras) == 0: return 0
+    return palabras.count(termino.lower()) / len(palabras)
+
+def calcular_idf(termino, corpus):
+    n = len(corpus)
+    # Contamos en cuántos documentos aparece la palabra
+    df = sum(1 for doc in corpus if termino.lower() in doc.lower())
+    if df == 0: return 0
+    return math.log(n / df)
+
+def motor_busqueda(consulta, corpus):
+    palabras_consulta = consulta.lower().split()
+    resultados = []
+    
+    for i, doc in enumerate(corpus):
+        score_total = 0
+        for palabra in palabras_consulta:
+            tf = calcular_tf(palabra, doc)
+            idf = calcular_idf(palabra, corpus)
+            score_total += (tf * idf)
+        
+        resultados.append({"id": i + 1, "doc": doc, "score": score_total})
+    
+    return sorted(resultados, key=lambda x: x["score"], reverse=True)
+
+# --- EJECUCIÓN DE PRUEBAS ---
+consultas = ["créditos académicos", "proceso admisión", "estudiantes regulares"]
+
+for q in consultas:
+    print(f"\n🔍 Búsqueda: '{q}'")
+    ranking = motor_busqueda(q, documents)
+    for res in ranking[:3]: # Top 3
+        print(f"ID {res['id']} (Score: {res['score']:.4f}): {res['doc'][:80]}...")
