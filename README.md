@@ -22,6 +22,14 @@ TF-IDF.py: Script principal con la lógica del motor de búsqueda.
 
 README.md: Documentación del proyecto.
 
+Tabla de Importancia (IDF)
+El sistema analizó el corpus de 10 artículos y determinó los siguientes pesos globales:
+
+| Tipo | Palabra | IDF Score | Significado |
+| :--- | :--- | :--- | :--- |
+| **Alto (Raras)** | `mandatos`, `salvo`, `desarrollar` | **2.3026** | Aparecen en 1 de 10 docs. Son términos muy específicos. |
+| **Bajo (Comunes)** | `de`, `en`, `la`, `a` | **0.0000** | Aparecen en todos los docs. No aportan valor de búsqueda. |
+
 Ejemplos de Ejecución
 A continuación se muestran los resultados obtenidos tras realizar búsquedas específicas en el sistema:
 

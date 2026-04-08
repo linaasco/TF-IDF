@@ -50,3 +50,32 @@ for q in consultas:
     ranking = motor_busqueda(q, documents)
     for res in ranking[:3]: # Top 3
         print(f"ID {res['id']} (Score: {res['score']:.4f}): {res['doc'][:80]}...")
+
+# --- CÁLCULO DE TABLAS DE IDF PARA LA PRESENTACIÓN ---
+print("\n" + "="*50)
+print("ANÁLISIS DE IMPORTANCIA DE PALABRAS (IDF)")
+print("="*50)
+
+# 1. Obtener todas las palabras únicas del reglamento
+todas_las_palabras = set()
+for doc in documents:
+    palabras = doc.lower().replace(",", "").replace(".", "").split()
+    todas_las_palabras.update(palabras)
+
+# 2. Calcular el IDF de cada palabra única
+lista_idf = []
+for palabra in todas_las_palabras:
+    valor_idf = calcular_idf(palabra, documents)
+    lista_idf.append((palabra, valor_idf))
+
+# 3. Ordenar para obtener los extremos
+lista_idf.sort(key=lambda x: x[1], reverse=True)
+
+print("\n⬆️ TOP 5 - IDF MÁS ALTO (Palabras más específicas):")
+for palabra, score in lista_idf[:5]:
+    print(f"- {palabra}: {score:.4f}")
+
+print("\n⬇️ TOP 5 - IDF MÁS BAJO (Palabras más comunes):")
+# Filtramos las que tienen los scores más bajos al final de la lista
+for palabra, score in lista_idf[-5:]:
+    print(f"- {palabra}: {score:.4f}")
