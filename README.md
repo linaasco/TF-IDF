@@ -37,6 +37,8 @@ Ejecutar el motor:
 Bash
 python TF-IDF.py
 
+Resultados del Análisis.
+Tabla de Importancia (IDF)El sistema analizó el corpus de 10 artículos y determinó los siguientes pesos globales:TipoPalabraIDF ScoreSignificadoAlto (Raras)mandatos, salvo, desarrollar2.3026Aparecen en 1 de 10 docs. Son términos muy específicos.Bajo (Comunes)de, en, la, a0.0000Aparecen en todos los docs. No aportan valor de búsqueda.
 Ejemplos de Ejecución
 A continuación se muestran los resultados obtenidos tras realizar búsquedas específicas en el sistema:
 
